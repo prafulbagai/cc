@@ -1,0 +1,61 @@
+{
+    "(#conversation_id#)_(#b_id#)": {
+        "from": "(#user_id)",
+        "email": "(#user email, only on admin)",
+        "date_time": "#get from db",
+        "query": "are you open ?",
+        "from_r_id": "(#representative_id)",
+        "from_r_name": "(#rep_name)",
+        "business_registered": "FALSE"
+        "to_business_name": "CCD saket",
+        "chat": [{
+            "direction": 1,
+            "text": "yes sir",
+            "date_time": "424 577"
+        }, {
+            "direction": 0,
+            "text": "ok",
+            "date_time": "424 577"
+        }]
+    },
+    "(#conversation_id#) _(#b_id#)": {
+        "from": "(#user_id)",
+        "email": "(#user email, only on admin)",
+        "date_time": "#get from db",
+        "query": "are you open ?",
+        "from_r_id": "rep_id",
+        "from_r_name": "rep_name",
+        "business_registered": "TRUE"
+        "to_business_name": "CCD saket",
+        "chat": [{
+            "direction": 1,
+            "text": "yes sir",
+            "date_time": "424 577"
+        }, {
+            "direction": 0,
+            "text": "ok",
+            "date_time": "424 577"
+        }]
+    },
+    "(#conversation_id#) _(#b_id#)": {
+        "from": "(#user_id)",
+        "email": "(#user email, only on admin)",
+        "date_time": "#get from db",
+        "query": "are you open ?",
+        "from_r_id": "(#representative_id)",
+        "from_r_name": "(#rep_name)",
+        "business_registered": "TRUE",
+        "to_business_name": "CCD saket",
+        "chat": [{
+            "direction": 1,
+            "text": "yes sir",
+            "date_time": "424 577"
+        }, {
+            "direction": 0,
+            "text": "ok",
+            "date_time": "424 577"
+        }]
+    }
+
+
+}
