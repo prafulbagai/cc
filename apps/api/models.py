@@ -203,7 +203,7 @@ class Users(models.Model):
         db_table = 'users'
 
 class WebQuery(models.Model):
-    query_id = models.BigIntegerField(unique=True)
+    query_id = models.BigIntegerField(primary_key=True)
     conversation_id = models.CharField(max_length=50L)
     u_id = models.CharField(max_length=50L)
     u_query = models.CharField(max_length=500L)
@@ -242,4 +242,3 @@ class WebUsers(models.Model):
     last_login = models.DateTimeField()
     class Meta:
         db_table = 'web_users'
-

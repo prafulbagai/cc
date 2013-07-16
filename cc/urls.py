@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'cc.views.home', name='home'),
     # url(r'^cc/', include('cc.foo.urls')),
     (r'^',include('apps.auth.urls')),
+    (r'^',include('apps.api.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
