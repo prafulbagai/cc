@@ -1,0 +1,40 @@
+<html>
+    <head>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"/>
+    </head>
+    <body>
+    	{% for key, values in chat_data.items %}
+            <div class="container-fluid" alt = {{key}}>
+                <div class="row-fluid">
+    	           <div class="span2">
+                     {{values.from}} <br/> {{values.init_query}}
+                    </div>
+
+                <div class="span10 well">
+                
+                    {% for k in values.chat %}
+                        
+    				        <label> Text : {{k.text}} </label> 
+                            <label> {{k.date_time}} </label>
+                        
+        			{% endfor %}    	
+                            
+    	        <form action = "#" method = "POST" id = {{key}} name = "reply_form">
+	               {% csrf_token %}
+    	           {{ form.as_p }}
+                    <input type="hidden" name="Chatroom" value={{key}}>
+                 	<input type = "submit" value = "Sent" class="btn btn-primary">
+        	    </form>
+                    
+                    </div>
+    		    </div>
+            </div>
+		{% endfor %}
+
+        <script type="text/javascript" src = "/static/js/bootstrap.js"></script>
+    </body>
+</html>
+
+
+
+
