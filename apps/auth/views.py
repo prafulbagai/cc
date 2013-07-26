@@ -5,9 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.contrib.auth.views import logout,login
 
-
-
-
 @login_required
 def home(request):
 	ctx = {}
@@ -22,6 +19,6 @@ def register(request):
 def login_page(request):
 	
 	if request.user.is_authenticated():
-		return redirect('/home')
+		return redirect('/dashboard')
 	else:
 		return login(request)

@@ -328,7 +328,7 @@ class TzMembers(models.Model):
         db_table = 'tz_members'
 
 class Users(models.Model):
-    user_id = models.BigIntegerField(unique=True)
+    user_id = models.BigIntegerField(unique=True,primary_key=True)
     username = models.CharField(max_length=20)
     fb_token = models.CharField(max_length=1000)
     email = models.CharField(max_length=50)

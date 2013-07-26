@@ -170,5 +170,5 @@ LOGGING = {
     }
 }
 
-LOGIN_REDIRECT_URL  = '/home/'
+LOGIN_REDIRECT_URL  = '/dashboard/'
 LOGIN_URL           = '/cc/'

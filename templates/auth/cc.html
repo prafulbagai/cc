@@ -1,12 +1,14 @@
 <html>
+    <head>
+	    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"/>
+    </head>
+
     <body>
 
-        <form action ="." method = POST>
+        <form action ="." method = POST class="form-signin">
             {% csrf_token %}    
             {{ form.as_p }}
             <input type = "submit" value = "login">
         </form>
-        
-        
     </body>
 </html

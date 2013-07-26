@@ -1,40 +1,54 @@
 <html>
     <head>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"/>
-    </head>
-    <body>
-    	{% for key, values in chat_data.items %}
-            <div class="container-fluid" alt = {{key}}>
-                <div class="row-fluid">
-    	           <div class="span2">
-                     {{values.from}} <br/> {{values.init_query}}
-                    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" href = "/static/js/dashboard.js"></script>
 
-                <div class="span10 well">
+    </head>
+  
+    <body>
+        <a href = "{% url 'cc_logout' %}">Logout</a>
+
+
+        <div class= "span15">
+    	{% for key, values in chat_data.items %}
                 
+                
+            <div class="tabbable" style="margin-bottom: 18px;">
+    	           <ul class="nav nav-tabs">
+                      <li class="active">
+                         
+                     {{values.from_name}}<br>
+
+                     <b> Query: </b>{{values.init_query}}<br/>
+
+                     <b> Last Response : </b> {{k.text}}
+                     
+                     </li>
+                    </ul>
+                    
+              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+
+                <div class="tab-pane active" id="tab1">
+                    <ul class="span12">
                     {% for k in values.chat %}
                         
-    				        <label> Text : {{k.text}} </label> 
-                            <label> {{k.date_time}} </label>
-                        
-        			{% endfor %}    	
-                            
-    	        <form action = "#" method = "POST" id = {{key}} name = "reply_form">
-	               {% csrf_token %}
-    	           {{ form.as_p }}
-                    <input type="hidden" name="Chatroom" value={{key}}>
-                 	<input type = "submit" value = "Sent" class="btn btn-primary">
-        	    </form>
-                    
+                         <li><b>CcUser: </b>{{k.text}} {{k.date_time}}</li>
+                        <br>
+        			{% endfor %} 
+                    </ul>   	        
+                    <form action = "{{rr_reply}}"method = "POST" id = {{key}} class="reply">
+    	               {% csrf_token %}
+        	           {{ form.as_p }}
+                        <input type="hidden" name="reply_id" value={{key}}>
+                        <input type="submit" value = "Sent" class="btn btn-primary"> 
+            	    </form>   
                     </div>
-    		    </div>
-            </div>
+                    </div>
+                </div><!--end:row-->        
 		{% endfor %}
+        </div>
 
         <script type="text/javascript" src = "/static/js/bootstrap.js"></script>
     </body>
 </html>
-
-
-
-

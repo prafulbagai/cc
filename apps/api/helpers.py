@@ -1,6 +1,7 @@
 from apps.api.models import *
 import json
 from itertools import chain
+import operator
 
 def chat_query(queries):
 	chat_data = {}
@@ -16,7 +17,10 @@ def chat_query(queries):
 		b_ids = b_ids["business_ids"]
 
 		cc_user_id = CcChatData.objects.using('launchg').filter(conversation_id = c_id)
-		print cc_user_id
+		user_name = Users.objects.using('launchg').filter(user_id = u_id)
+
+		for user in user_name:
+			username = user.username
 
 		for ids in cc_user_id:
 			cc_id = ids.reply_from
@@ -31,14 +35,17 @@ def chat_query(queries):
 
 		for b_id in b_ids:
 
-			representative_reply = WebReply.objects.using('launchg').filter(conversation_id = c_id , b_id = b_id).order_by('-date_time')
-			user_reply = WebQuery.objects.using('launchg').filter(conversation_id = c_id).order_by('-date_time')
-			replies.append(chain(representative_reply , user_reply))
-
+			representative_reply = WebReply.objects.using('launchg').filter(conversation_id = c_id , b_id = b_id).order_by('date_time')
+			user_reply = WebQuery.objects.using('launchg').filter(conversation_id = c_id).order_by('date_time')
+			#replies.append(chain(representative_reply , user_reply))
+			replies.append(representative_reply)
+			#replies.sort(key=operator.attrgetter('date_time'))
+						
 			reply_dict={"chat":[]}
 			for reply in replies:
+				
 				for r in reply:
-					if isinstance(r.u_query, WebReply):
+					if r in user_reply:
 						direction = 1
 					else : direction = 0
 
@@ -61,6 +68,7 @@ def chat_query(queries):
 			
 
 			chat_data.update({str(c_id) + '_' + str(b_id) : { "from" : query.u_id , 
+							 "from_name" : username,
 							 "init_query" : init_query,
 							 "date_time" : query.date_time.strftime("%s %s" % (DATE_FORMAT, TIME_FORMAT)) , 
 							 #"from_cc_id" : cc_id,
@@ -87,14 +95,14 @@ def db_rr_reply(conversation_id):
 	representative_reply = WebReply.objects.using('launchg').filter(conversation_id = conversation_id ).order_by('date_time')
 	user_reply = WebQuery.objects.using('launchg').filter(conversation_id = conversation_id).order_by('date_time')
 	replies.append(chain(representative_reply , user_reply))
-
-
+	
 	for reply in replies:
 		for r in reply:
+	
 			if isinstance(r.u_query, WebReply):
 				direction = 1
 			else : 
 				direction = 0
-				reply_dict["chat"].append({"direction" : direction , "text" : r.u_query , 
+			reply_dict["chat"].append({"direction" : direction , "text" : r.u_query , 
 						"date_time" : r.date_time.strftime("%s %s" % (DATE_FORMAT, TIME_FORMAT)) })
 	return reply_dict
