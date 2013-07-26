@@ -8,46 +8,43 @@
   
     <body>
         <a href = "{% url 'cc_logout' %}">Logout</a>
+        <div class="container-fluid">
 
-
-        <div class= "span15">
-    	{% for key, values in chat_data.items %}
+        {% for key, values in chat_data.items %}
                 
                 
-            <div class="tabbable" style="margin-bottom: 18px;">
-    	           <ul class="nav nav-tabs">
-                      <li class="active">
-                         
-                     {{values.from_name}}<br>
+                <div class="row-fluid" alt = {{key}}>
+                   <div class="span4 well">
+                     {{values.from_name}} <br/>
 
                      <b> Query: </b>{{values.init_query}}<br/>
 
                      <b> Last Response : </b> {{k.text}}
-                     
-                     </li>
-                    </ul>
                     
-              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+                    </div>
 
-                <div class="tab-pane active" id="tab1">
+                    <div class="span8 well">
                     <ul class="span12">
                     {% for k in values.chat %}
-                        
-                         <li><b>CcUser: </b>{{k.text}} {{k.date_time}}</li>
+                        {% if k.direction %}
+                            <b>{{values.from_name}}</b> :
+                        {% else %}
+                            <b>CcUser</b> :
+                        {% endif %}
+                         <li>{{k.text}} {{k.date_time}}</li>
                         <br>
-        			{% endfor %} 
-                    </ul>   	        
+                    {% endfor %} 
+                    </ul>               
                     <form action = "{{rr_reply}}"method = "POST" id = {{key}} class="reply">
-    	               {% csrf_token %}
-        	           {{ form.as_p }}
+                       {% csrf_token %}
+                       {{ form.as_p }}
                         <input type="hidden" name="reply_id" value={{key}}>
                         <input type="submit" value = "Sent" class="btn btn-primary"> 
-            	    </form>   
-                    </div>
+                    </form>   
                     </div>
                 </div><!--end:row-->        
-		{% endfor %}
-        </div>
+        {% endfor %}
+        </div><!--end:<div class="container-fluid">-->
 
         <script type="text/javascript" src = "/static/js/bootstrap.js"></script>
     </body>
